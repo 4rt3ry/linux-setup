@@ -121,3 +121,17 @@ Find VSCode installation [here](https://code.visualstudio.com/docs/setup/linux)
 ## helpful repos
 1. https://github.com/4rt3ry/resources
 2. https://github.com/4rt3ry/linux-setup
+
+## git setup
+Download the [git-credential-manager](https://github.com/git-ecosystem/git-credential-manager/blob/release/docs/install.md#debian-package)
+```
+sudo apt install ./<file>
+
+# credential manager options are secretservice, gpg, cache, or plaintext
+# we're using gpg
+sudo apt install gpg pass
+git-credential-manager configure
+git config --global credential.credentialStore gpg
+gpg --gen-key
+pass init <gpg-public-key>
+```
