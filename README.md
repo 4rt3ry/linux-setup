@@ -1,6 +1,3 @@
-# linux-setup
-Check out the wiki for more information!
-
 # setup
 
 ## packages
@@ -17,13 +14,28 @@ sudo apt install tasksel
 sudo apt install libavcodec-extra vlc
 ```
 
-## extra info
-
+## nvidia graphics
+Check [here](https://wiki.debian.org/NvidiaGraphicsDrivers) for more accurate setup directions.
 ```
 # graphics info
 sudo lshw -C display
+
+sudo apt install linux-headers-amd64
+sudo nano /etc/apt/sources.list
+#...
+deb <mirror> sid main contrib non-free non-free-firmware
+#eof
+sudo apt install nvidia-driver firmware-misc-nonfree
 ```
 
+### support for 32-bit games
+Check [#Installing_32-bit_libraries_on_a_64-bit_system](https://wiki.debian.org/NvidiaGraphicsDrivers#Installing_32-bit_libraries_on_a_64-bit_system) for more details
+```
+# enable 32 bit architecture
+sudo dpkg --add-architecture i386 && sudo apt update
+# install 32 bit nvidia graphics
+sudo apt install nvidia-driver-libs:i386
+```
 
 ## backports
 Basically newer, but unstable releases
@@ -100,3 +112,12 @@ sudo apt install task-kde-desktop
 ```
 
 # software
+
+Find VSCode installation [here](https://code.visualstudio.com/docs/setup/linux)
+
+### package list
+
+# additional sources
+## helpful repos
+1. https://github.com/4rt3ry/resources
+2. https://github.com/4rt3ry/linux-setup
