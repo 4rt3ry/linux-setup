@@ -53,15 +53,9 @@ Find VSCode installation [here](https://code.visualstudio.com/docs/setup/linux)
 2. https://github.com/4rt3ry/linux-setup
 
 ## git setup
-Download the [git-credential-manager](https://github.com/git-ecosystem/git-credential-manager/blob/release/docs/install.md#debian-package)
+As far as I know, [git-credential-manager](https://github.com/git-ecosystem/git-credential-manager/blob/release/docs/install.md#debian-package) does not support Arch Linux systems
 ```
-sudo apt install ./<file>
-
-# credential manager options are secretservice, gpg, cache, or plaintext
-# we're using gpg
-sudo apt install gpg pass
-git-credential-manager configure
-git config --global credential.credentialStore gpg
-gpg --gen-key
-pass init <gpg-public-key>
+ssh-keygen -t rsa -b 4096 -c "your_email@example.com"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/ssh_key_file
 ```
