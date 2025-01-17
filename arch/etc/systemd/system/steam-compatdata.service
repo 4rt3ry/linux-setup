@@ -1,0 +1,21 @@
+[Unit]
+Description=Mount Steam compatability data on exfat drive so that proton games are playable
+Requires={DEVICE_MOUNT_NAME}
+After={DEVICE_MOUNT_NAME}
+
+[Service]
+ExecStart={MOUNT_SCRIPT}
+User={USER}
+WorkingDirectory={MOUNT_SCRIPT_DIRECTORY}
+
+[Install]
+WantedBy={DEVICE_MOUNT_NAME}.mount
+
+
+
+
+### don't include this part of the file ###
+
+{DEVICE_MOUNT_NAME} found with "systemctl list-units -t mount", likely starting with "run-media" and ending with ".mount"
+{MOUNT_SCRIPT} is located in scripts/mount-steam-compatdata.sh
+{USER} is your machine's user name
