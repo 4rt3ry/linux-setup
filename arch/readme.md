@@ -1,6 +1,6 @@
 # setup
 
-## packages
+## useful packages for setup
 ```
 sudo pacman -S neofetch
 sudo pacman -S ghostwriter
@@ -16,7 +16,7 @@ lastUsedExporter=cmark-gfm" > ~/.config/kde.org/ghostwriter.conf
 ## backups
 ### system settings
 ```
-sudo apt install timeshift
+sudo pacman -S timeshift
 sudo nano cat /etc/timeshift/timeshift.json
 ```
 
@@ -31,7 +31,7 @@ sudo pacman-mirrors --fasttrack --country United_States --proto https && sudo pa
 
 # customization
 
-## Desktop environment
+## desktop environment
 ```
 # sudo pacman -S --needed xorg sddm
 
@@ -41,11 +41,86 @@ pacman -S --needed plasma kde-applications
 # sudo systemctl enable NetworkManager
 ```
 
+## hibernation
+
+*This method assumes you already have a swap partition at least the size of your RAM (ideally 1.5x RAM). If not, consider using a swap file and check out [Arch Wiki - Hibernation](https://wiki.archlinux.org/title/Power_management/Suspend_and_hibernate#Hibernation). Note that it's possible for hibernation to work even if your swap space is smaller than your RAM considering your memory usage is little.*
+
+To enable hibernation, you need to configure initramfs and to point the kernel to your swap partition.
+
+Grab swap info: 
+```
+swapon
+
+# example result:
+# NAME           TYPE       SIZE USED PRIO
+# /dev/nvme0n1p1 partition 34.2G   0B   -2
+```
+
+Copy the UUID key/value pair (without quotes) from the following:
+```
+sudo blkid
+
+# example result:
+# /dev/nvme0n1p1: LABEL="swap" UUID="f91799cd-c8ed-423d-8123-967955e5c867" TYPE="swap" PARTUUID="51d5e152-4a3e-437d-8e87-2f00a9f782ed"
+
+# copy UUID=f91799cd-c8ed-423d-8123-967955e5c867
+```
+
+Open `/etc/default/grub` in any editor and modify the following line `GRUB_CMDLINE_LINUX_DEFAULT="... resume=UUID=<UUID>"`. Then regenerate your GRUB configuration.
+
+```
+sudo vim /etc/default/grub
+
+# edit the following line
+# GRUB_CMDLINE_LINUX_DEFAULT="... resume=UUID=<UUID>
+
+# regenerate grub config
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+Next, we need to configure initramfs. To do so, add the resume hook to `/etc/mkinitcpio.conf`. If `resume` already exists, you do not need to do anything more for this step. Otherwise, regenerate the configuration and reboot the system.
+
+```
+sudo vim /etc/mkinitcpio.conf
+
+# edit the following line
+# HOOKS="... resume"  
+
+sudo mkinitcpio -P
+reboot
+```
+
+Check out this super cool guide: [How To Enable Hibernation in Manjaro](https://www.vegard.net/manjaro-enable-hibernate/)
+
 # software
 
 Find VSCode installation [here](https://code.visualstudio.com/docs/setup/linux)
 
-### package list
+## package list
+
+### node
+Development with JavaScript
+```
+sudo pacman -S nvm
+
+# set up $HOME/.nvm and the nvm command
+echo 'source /usr/share/nvm/init-nvm.sh' >> ~/.bashrc
+
+nvm ls-remote
+nvm install <version>
+```
+
+### keyd
+Create keyboard macros (or pair with Piper to create more complex mouse macros)
+```
+sudo pacman -S keyd
+```
+
+### piper
+Create mouse macros
+```
+sudo pacman -S piper
+```
 
 # additional sources
 ## helpful repos
