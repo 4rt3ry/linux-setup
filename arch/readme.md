@@ -122,6 +122,29 @@ Create mouse macros
 sudo pacman -S piper
 ```
 
+### qemu/kvm
+Virtual machines galore!
+```
+lscpu | grep -i virt
+
+# which kvm modules are installed
+zgrep CONFIG_KVM /proc/config.gz
+
+sudo pacman -S qemu-full qemu-img libvirt virt-install virt-manager virt-viewer \
+edk2-ovmf dnsmasq swtpm guestfs-tools libosinfo tuned
+
+# libvirtd modular services
+for drv in qemu interface network nodedev nwfilter secret storage; do
+    sudo systemctl enable virt${drv}d.service;
+    sudo systemctl enable virt${drv}d{,-ro,-admin}.socket;
+done
+
+# shutdown -r 0
+
+```
+View https://gist.github.com/tatumroaquin/c6464e1ccaef40fd098a4f31db61ab22 for more.
+
+
 # additional sources
 ## helpful repos
 1. https://github.com/4rt3ry/resources
