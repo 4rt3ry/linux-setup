@@ -1,4 +1,4 @@
-# setup
+	# setup
 
 ## useful packages for setup
 ```
@@ -144,6 +144,20 @@ done
 ```
 View https://gist.github.com/tatumroaquin/c6464e1ccaef40fd098a4f31db61ab22 for more.
 
+### docker
+
+Run a headless container. For example, you can run Kali linux executables without installing unecessary files.
+
+```
+sudo pacman -S docker
+sudo systemctl start docker
+
+# For example, installing Kali with network enabled for net tools
+docker run -it --cap-add NET_ADMIN kalilinux/kali-rolling
+apt update & apt -y install kali-linux-headless
+
+
+```
 
 # additional sources
 ## helpful repos
