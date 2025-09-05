@@ -34,6 +34,7 @@ Plugin 'gmarik/Vundle.vim'
 
 " add all your plugins here (note older versions of Vundle
 " used Bundle instead of Plugin)
+Plugin 'Valloric/YouCompleteMe'
 
 " ...
 
@@ -47,14 +48,17 @@ filetype plugin indent on    " required
 """""""""""""""" Personal setup """"""""""""""""""""""""
 "
 
-au BufNewFile,BufRead *.py
-    \ set tabstop=4
-    \ set softtabstop=4
-    \ set shiftwidth=4
-    \ set textwidth=79
-    \ set expandtab
-    \ set autoindent
-    \ set fileformat=unix
+" Python
+" Follow https://realpython.com/vim-and-python-a-match-made-in-heaven/
+au BufNewFile,BufRead *.py 
+    \ | setlocal tabstop=4
+    \ | setlocal softtabstop=4
+    \ | setlocal shiftwidth=4
+    \ | setlocal textwidth=79
+    \ | setlocal expandtab
+    \ | setlocal autoindent
+    \ | setlocal fileformat=unix
+" au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 
 
@@ -97,6 +101,9 @@ set smartcase
 set wildmenu
 set wildmode=list
 highlight wildmenu ctermbg=lightgreen ctermfg=black
+
+" highlight search result
+set hlsearch
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
