@@ -35,6 +35,8 @@ Plugin 'gmarik/Vundle.vim'
 " add all your plugins here (note older versions of Vundle
 " used Bundle instead of Plugin)
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'vim-autoformat/vim-autoformat'
+
 
 " ...
 
@@ -54,11 +56,13 @@ au BufNewFile,BufRead *.py
     \ | setlocal tabstop=4
     \ | setlocal softtabstop=4
     \ | setlocal shiftwidth=4
-    \ | setlocal textwidth=79
     \ | setlocal expandtab
     \ | setlocal autoindent
     \ | setlocal fileformat=unix
 " au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
+" bind F3 to autoformat
+noremap <F3> :Autoformat<CR>
 
 
 
