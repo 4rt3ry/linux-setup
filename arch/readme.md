@@ -98,6 +98,12 @@ Find VSCode installation [here](https://code.visualstudio.com/docs/setup/linux)
 
 ## package list
 
+### xclip
+Copying to the sytem clipboard via command line
+```
+sudo pacman -S xclip
+```
+
 ### node
 Development with JavaScript
 ```
