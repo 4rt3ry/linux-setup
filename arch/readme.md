@@ -154,7 +154,7 @@ sudo systemctl start docker
 
 # For example, installing Kali with network enabled for net tools
 docker run -it --cap-add NET_ADMIN kalilinux/kali-rolling
-apt update & apt -y install kali-linux-headless
+apt update && apt upgrade && apt -y install kali-linux-headless
 
 
 ```

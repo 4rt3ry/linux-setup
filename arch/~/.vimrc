@@ -17,6 +17,9 @@ runtime! archlinux.vim
 " do not load defaults if ~/.vimrc is missing
 "let skip_defaults_vim=1
 
+let mapleader = ","
+let maplocalleader = ","
+
 " Vundle setup
 
 set nocompatible              " required
@@ -34,8 +37,14 @@ Plugin 'gmarik/Vundle.vim'
 
 " add all your plugins here (note older versions of Vundle
 " used Bundle instead of Plugin)
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'ycm-core/YouCompleteMe'
 Plugin 'vim-autoformat/vim-autoformat'
+Plugin 'DanBradbury/copilot-chat.vim'
+
+" color schemes
+Plugin 'srcery-colors/srcery-vim'
+Plugin 'fcpg/vim-fahrenheit'
+Plugin 'fcpg/vim-farout'
 
 
 " ...
@@ -43,7 +52,7 @@ Plugin 'vim-autoformat/vim-autoformat'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
-
+set encoding=utf-8
 
 
 
@@ -64,7 +73,8 @@ au BufNewFile,BufRead *.py
 " bind F3 to autoformat
 noremap <F3> :Autoformat<CR>
 
-
+" line endings
+set fileformat=unix
 
 
 " :W sudo saves the file
@@ -103,7 +113,7 @@ set smartcase
 
 " enable auto completion menu when pressing tab after typing a command
 set wildmenu
-set wildmode=list
+set wildmode=list,full
 highlight wildmenu ctermbg=lightgreen ctermfg=black
 
 " highlight search result
@@ -119,9 +129,28 @@ map <space> /
 map <C-@> ?
 map <S-space> :
 
+" in Konsole or gnome shell, alt key does not work for mappings
+nnoremap <A-k> :m .-2==
+inoremap <A-k> :m .-2==gi
+vnoremap <A-k> :m '<-2gv=gv
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "=> Syntax highlighting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 syntax enable
 filetype plugin indent on
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=> Plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Open a new Cpilot Chat window
+nnoremap <leader>cc :CopilotChatOpen<CR>
+
+" Add visual selection to copilot window
+vmap <leader>a <Plug>CopilotChatAddSelection
+
+" formatter for vim-autoformat
+"let g:formatdef_eslint = '"npx eslint --fix --suppress-all"'
+"let g:formatters_javascriptreact = ['eslint']
