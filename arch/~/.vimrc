@@ -37,13 +37,13 @@ Plugin 'gmarik/Vundle.vim'
 
 " add all your plugins here (note older versions of Vundle
 " used Bundle instead of Plugin)
-Plugin 'ycm-core/YouCompleteMe'
+" Plugin 'ycm-core/YouCompleteMe'
 Plugin 'vim-autoformat/vim-autoformat'
-Plugin 'DanBradbury/copilot-chat.vim'
+" Plugin 'DanBradbury/copilot-chat.vim'
 
 " color schemes
-Plugin 'srcery-colors/srcery-vim'
-Plugin 'fcpg/vim-fahrenheit'
+" Plugin 'srcery-colors/srcery-vim'
+" Plugin 'fcpg/vim-fahrenheit'
 Plugin 'fcpg/vim-farout'
 
 
