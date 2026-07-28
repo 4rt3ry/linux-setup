@@ -36,7 +36,11 @@ Plugin 'gmarik/Vundle.vim'
 " used Bundle instead of Plugin)
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-autoformat/vim-autoformat'
-
+" Plugin 'vim-scripts/indentpython.vim'
+" Plugin 'github/copilot.vim'
+" Plugin 'DanBradbury/copilot-chat.vim'
+" Plugin 'fcpg/vim-farout'
+Plugin 'vim-scripts/loremipsum'
 
 " ...
 
@@ -44,28 +48,113 @@ Plugin 'vim-autoformat/vim-autoformat'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-
-
-
 """""""""""""""" Personal setup """"""""""""""""""""""""
 "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VIM user interface
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Turn on the Wild menu
+set wildmenu
+
+" Ignore compiled files
+set wildignore=*.o,*~,*.pyc
+if has("win16") || has("win32")
+    set wildignore+=.git\*,.hg\*,.svn\*
+else
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+endif
+
+" Always show current position
+set ruler
+
+" Height of the command bar
+set cmdheight=1
+
+" A buffer becomes hidden when it is abandoned
+set hid
+
+" Ignore case when searching
+set ignorecase
+
+" When searching try to be smart about cases
+set smartcase
+
+" Highlight search results
+set hlsearch
+
+" Makes search act like search in modern browsers
+set incsearch
+
+" For regular expressions turn magic on
+set magic
+
+" Show matching brackets when text indicator is over them
+set showmatch
+
+" How many tenths of a second to blink when matching brackets
+set mat=2
+
+" No annoying sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+" Set regular expression engine automatically
+set regexpengine=0
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Text, tab and indent related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use spaces instead of tabs
+set expandtab
+
+" Be smart when using tabs ;)
+set smarttab
+
+" 1 tab == 4 spaces
+set shiftwidth=4
+set tabstop=4
+
+set ai "Auto indent
+set si "Smart indent
+set wrap "Wrap lines
 
 " Python
 " Follow https://realpython.com/vim-and-python-a-match-made-in-heaven/
-au BufNewFile,BufRead *.py 
-    \ | setlocal tabstop=4
-    \ | setlocal softtabstop=4
-    \ | setlocal shiftwidth=4
-    \ | setlocal expandtab
-    \ | setlocal autoindent
-    \ | setlocal fileformat=unix
 " au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+au BufNewFile,BufRead *.py
+            \ | setlocal tabstop=4
+            \ | setlocal softtabstop=4
+            \ | setlocal shiftwidth=4
+            \ | setlocal expandtab
+            \ | setlocal autoindent
+            \ | setlocal fileformat=unix
+            \ | setlocal encoding=utf-8
 
-" bind F3 to autoformat
+au FileType typescriptreact,javascriptreact 
+            \ | setlocal tabstop=2
+            \ | setlocal softtabstop=2
+            \ | setlocal shiftwidth=2
+            \ | setlocal expandtab
+            \ | setlocal autoindent
+            \ | setlocal fileformat=unix
+            \ | setlocal encoding=utf-8
+
+au FileType css
+            \ | setlocal tabstop=2
+            \ | setlocal softtabstop=2
+            \ | setlocal shiftwidth=2
+            \ | setlocal expandtab
+            \ | setlocal autoindent
+            \ | setlocal fileformat=unix
+            \ | setlocal encoding=utf-8
+
 noremap <F3> :Autoformat<CR>
-
-
-
+noremap <C-S-i> :!npx prettier % --write<CR>
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
@@ -118,6 +207,26 @@ set hlsearch
 map <space> /
 map <C-@> ?
 map <S-space> :
+"
+" Disable highlight when <leader><cr> is pressed
+map <silent> <leader><cr> :noh<cr>
+
+" Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugin Shortcuts
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" copilot
+" Open a new Cpilot Chat window
+" nnoremap <leader>cc :CopilotChatOpen<CR>
+
+" Add visual selection to copilot window
+" vmap <leader>a <Plug>CopilotChatAddSelection
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "=> Syntax highlighting
@@ -125,3 +234,12 @@ map <S-space> :
 
 syntax enable
 filetype plugin indent on
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Load local configuration files
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" maybe use a for loop for all configuration files matching a pattern?
+if filereadable(expand("~/.vimrc.local"))
+    source ~/.vimrc.local
+endif
