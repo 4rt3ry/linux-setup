@@ -9,3 +9,6 @@ highlight CursorLine ctermul=darkgrey
 highlight CursorLineNr guifg=#fabd2f guibg=#3c3836 ctermfg=white cterm=NONE
 
 highlight Comment ctermfg=8
+
+highlight! SpellCap ctermbg=None cterm=underline ctermfg=11
+set notermguicolors

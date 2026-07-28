@@ -17,6 +17,9 @@ runtime! archlinux.vim
 " do not load defaults if ~/.vimrc is missing
 "let skip_defaults_vim=1
 
+let mapleader = ","
+let maplocalleader = ","
+
 " Vundle setup
 
 set nocompatible              " required
@@ -34,19 +37,24 @@ Plugin 'gmarik/Vundle.vim'
 
 " add all your plugins here (note older versions of Vundle
 " used Bundle instead of Plugin)
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'ycm-core/YouCompleteMe'
 Plugin 'vim-autoformat/vim-autoformat'
 " Plugin 'vim-scripts/indentpython.vim'
+Plugin 'vim-scripts/loremipsum'
 " Plugin 'github/copilot.vim'
 " Plugin 'DanBradbury/copilot-chat.vim'
+
+" color schemes
+" Plugin 'srcery-colors/srcery-vim'
+" Plugin 'fcpg/vim-fahrenheit'
 " Plugin 'fcpg/vim-farout'
-Plugin 'vim-scripts/loremipsum'
 
 " ...
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+" set encoding=utf-8
 
 """""""""""""""" Personal setup """"""""""""""""""""""""
 "
@@ -132,7 +140,6 @@ au BufNewFile,BufRead *.py
             \ | setlocal shiftwidth=4
             \ | setlocal expandtab
             \ | setlocal autoindent
-            \ | setlocal fileformat=unix
             \ | setlocal encoding=utf-8
 
 au FileType typescriptreact,javascriptreact 
@@ -141,7 +148,6 @@ au FileType typescriptreact,javascriptreact
             \ | setlocal shiftwidth=2
             \ | setlocal expandtab
             \ | setlocal autoindent
-            \ | setlocal fileformat=unix
             \ | setlocal encoding=utf-8
 
 au FileType css
@@ -150,11 +156,13 @@ au FileType css
             \ | setlocal shiftwidth=2
             \ | setlocal expandtab
             \ | setlocal autoindent
-            \ | setlocal fileformat=unix
             \ | setlocal encoding=utf-8
 
 noremap <F3> :Autoformat<CR>
 noremap <C-S-i> :!npx prettier % --write<CR>
+
+" line endings
+set fileformat=unix
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
@@ -192,7 +200,7 @@ set smartcase
 
 " enable auto completion menu when pressing tab after typing a command
 set wildmenu
-set wildmode=list
+set wildmode=list,full
 highlight wildmenu ctermbg=lightgreen ctermfg=black
 
 " highlight search result
@@ -228,8 +236,17 @@ map <C-l> <C-W>l
 " Add visual selection to copilot window
 " vmap <leader>a <Plug>CopilotChatAddSelection
 
+" in Konsole or gnome shell, alt key does not work for mappings
+nnoremap <A-k> :m .-2==
+inoremap <A-k> :m .-2==gi
+vnoremap <A-k> :m '<-2gv=gv
+
+" formatter for vim-autoformat
+"let g:formatdef_eslint = '"npx eslint --fix --suppress-all"'
+"let g:formatters_javascriptreact = ['eslint']
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"=> Syntax highlighting
+" => Syntax highlighting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 syntax enable
@@ -243,3 +260,4 @@ filetype plugin indent on
 if filereadable(expand("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
+
