@@ -168,11 +168,6 @@ set fileformat=unix
 " (useful for handling the permission-denied error)
 command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
-" use 4 spaces instead of tabs
-set tabstop=4
-set shiftwidth=4
-set expandtab
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Cosmetics and stuff
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -237,9 +232,18 @@ map <C-l> <C-W>l
 " vmap <leader>a <Plug>CopilotChatAddSelection
 
 " in Konsole or gnome shell, alt key does not work for mappings
-nnoremap <A-k> :m .-2==
-inoremap <A-k> :m .-2==gi
-vnoremap <A-k> :m '<-2gv=gv
+" nnoremap <A-k> :m .-2==
+" inoremap <A-k> :m .-2==gi
+" vnoremap <A-k> :m '<-2gv=gv
+"
+" in Konsole or gnome shell, alt key does not work for mappings
+nnoremap <C-k> :m .-2i<CR>
+inoremap <C-k> <ESC>:m .-2i<CR>
+vnoremap <C-k> :m '<-2<CR>gv
+
+nnoremap <C-j> :m .+1<CR>
+inoremap <C-j> <ESC>:m .+1i<CR>
+vnoremap <C-j> :m '<+1<CR>gv
 
 " formatter for vim-autoformat
 "let g:formatdef_eslint = '"npx eslint --fix --suppress-all"'
